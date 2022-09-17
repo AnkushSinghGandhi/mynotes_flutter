@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1079468036650",
+    "project_id": "mynotes-ankush-singh",
+    "storage_bucket": "mynotes-ankush-singh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079468036650:android:2327d582c190689feba953",
+        "android_client_info": {
+          "package_name": "com.ankushgandhi.mynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079468036650-p6jtg40hmbnd3jt9kgm556vci8382nev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2OU5A_qaUNW2_hSoXrLHSW4b2sgH2SrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079468036650-p6jtg40hmbnd3jt9kgm556vci8382nev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
