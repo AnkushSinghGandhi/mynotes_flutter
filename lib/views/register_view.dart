@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:mynotes/firebase_options.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -31,58 +29,50 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
+        appBar: AppBar(
+          title: const Text('Register view'),
         ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(children: [
-                TextField(
-                  controller: _email,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration:
-                      const InputDecoration(hintText: 'email goes here'),
-                ),
-                TextField(
-                  controller: _password,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  obscureText: true,
-                  decoration:
-                      const InputDecoration(hintText: 'password mangta apun'),
-                ),
-                TextButton(
-                    onPressed: (() async {
-                      final email = _email.text;
-                      final password = _password.text;
-                      try {
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                            email: email, password: password);
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('User not found!');
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password!');
-                        } else {
-                          print(e.code);
-                        }
-                      }
-                      ;
-                    }),
-                    child: Text('Register'))
-              ]);
-            default:
-              return const Text('Loading');
-          }
-        },
-      ),
-    );
+        body: Column(children: [
+          TextField(
+            controller: _email,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(hintText: 'email goes here'),
+          ),
+          TextField(
+            controller: _password,
+            enableSuggestions: false,
+            autocorrect: false,
+            obscureText: true,
+            decoration: const InputDecoration(hintText: 'password mangta apun'),
+          ),
+          TextButton(
+              onPressed: (() async {
+                final email = _email.text;
+                final password = _password.text;
+                try {
+                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'week-password') {
+                    print('Week password!');
+                  } else if (e.code == 'email-already-in-use') {
+                    print('Email already in use!');
+                  } else if (e.code == 'invalid-email') {
+                    print('Invalid email!');
+                  } else {
+                    print(e.code);
+                  }
+                }
+              }),
+              child: const Text('Register')),
+          TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/login/', (route) => false);
+              },
+              child: const Text('Already have an account? Login here!'))
+        ]));
   }
 }

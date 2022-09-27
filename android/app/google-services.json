@@ -29,6 +29,13 @@
             {
               "client_id": "1079468036650-p6jtg40hmbnd3jt9kgm556vci8382nev.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1079468036650-nan4nds3cpmrc2gt48s35cds2o4uqmel.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ankushgandhi.mynotes"
+              }
             }
           ]
         }
