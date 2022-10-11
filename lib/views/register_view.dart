@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:mynotes/utilities/show_verification_dialog.dart';
 
 import '../utilities/show_error_dialog.dart';
@@ -61,32 +62,25 @@ class _RegisterViewState extends State<RegisterView> {
                     password: password,
                   );
                   await showVerificationDialog(context);
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'week-password') {
-                    await showErrorDialog(
-                      (context),
-                      'Week password!',
-                    );
-                  } else if (e.code == 'email-already-in-use') {
-                    await showErrorDialog(
-                      (context),
-                      'Email already in use!',
-                    );
-                  } else if (e.code == 'invalid-email') {
-                    await showErrorDialog(
-                      (context),
-                      'Invalid email!',
-                    );
-                  } else {
-                    await showErrorDialog(
-                      (context),
-                      e.code,
-                    );
-                  }
-                } catch (e) {
+                } on WeakPasswordAuthException {
                   await showErrorDialog(
                     (context),
-                    e.toString(),
+                    'Week password!',
+                  );
+                } on EmailAlreadyInUseAuthException {
+                  await showErrorDialog(
+                    (context),
+                    'Email already in use!',
+                  );
+                } on InvalidEmailAuthException {
+                  await showErrorDialog(
+                    (context),
+                    'Invalid email!',
+                  );
+                } on GenericAuthException {
+                  await showErrorDialog(
+                    (context),
+                    'Authentication error',
                   );
                 }
               }),
