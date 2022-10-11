@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/constants/routes.dart';
 
 Future<void> showVerificationDialog(
   BuildContext context,
 ) async {
-  final user = FirebaseAuth.instance.currentUser;
-  await user?.sendEmailVerification();
+  await AuthService.firebase().sendEmailVerification();
   return showDialog(
       context: context,
       builder: (context) {

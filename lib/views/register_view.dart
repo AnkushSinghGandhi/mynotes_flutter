@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mynotes/services/auth/auth_service.dart';
+import 'package:mynotes/services/auth/firebase_auth_provider.dart';
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:mynotes/utilities/show_verification_dialog.dart';
@@ -57,7 +58,7 @@ class _RegisterViewState extends State<RegisterView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  await AuthService.firebase().createUser(
                     email: email,
                     password: password,
                   );
@@ -80,7 +81,7 @@ class _RegisterViewState extends State<RegisterView> {
                 } on GenericAuthException {
                   await showErrorDialog(
                     (context),
-                    'Authentication error',
+                    'Failed to register',
                   );
                 }
               }),
